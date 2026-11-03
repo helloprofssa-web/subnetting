@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calcolatore Subnetting</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero"><div class="hero-inner">
+  <h1>Calcolatore Subnetting</h1>
+  <p>Esercizi guidati su classi IP, subnet mask, sottoreti e appartenenza alla rete (IPv4)</p>
+</div></header>
+
+<main class="wrap">
+<div class="tabs">
+  <button class="tab active" data-target="p3">Classi IP</button>
+  <button class="tab" data-target="p1">Subnet mask</button>
+  <button class="tab" data-target="p2">Sottoreti da IP</button>
+  <button class="tab" data-target="p4">Sottoreti da mask</button>
+  <button class="tab" data-target="p5">Almeno N sottoreti</button>
+  <button class="tab" data-target="p6">Stessa sottorete?</button>
+  <button class="tab" data-target="p7">IP in una rete?</button>
+</div>
+
+<div class="card panel active" id="p3">
+  <h2>Classificazione indirizzi IP</h2>
+  <h3>Classi</h3>
+  <div class="scroll"><table>
+    <tr><th>Classe</th><th>Range</th><th>Bit di rete</th><th>Subnet mask</th><th>Uso</th></tr>
+    <tr><td>A</td><td>0.0.0.0 – 127.255.255.255</td><td>8</td><td>255.0.0.0</td><td>Reti molto grandi</td></tr>
+    <tr><td>B</td><td>128.0.0.0 – 191.255.255.255</td><td>16</td><td>255.255.0.0</td><td>Reti medie</td></tr>
+    <tr><td>C</td><td>192.0.0.0 – 223.255.255.255</td><td>24</td><td>255.255.255.0</td><td>Reti piccole</td></tr>
+    <tr><td>D</td><td>224.0.0.0 – 239.255.255.255</td><td>–</td><td>–</td><td>Multicast</td></tr>
+    <tr><td>E</td><td>240.0.0.0 – 255.255.255.255</td><td>–</td><td>–</td><td>Riservata / sperimentale</td></tr>
+  </table></div>
+  <h3>Indirizzi privati</h3>
+  <div class="scroll"><table>
+    <tr><th>Classe</th><th>Range privato</th></tr>
+    <tr><td>A</td><td>10.0.0.0 – 10.255.255.255</td></tr>
+    <tr><td>B</td><td>172.16.0.0 – 172.31.255.255</td></tr>
+    <tr><td>C</td><td>192.168.0.0 – 192.168.255.255</td></tr>
+  </table></div>
+  <p>Tutti gli altri indirizzi di classe A, B e C sono pubblici (esclusi gli indirizzi speciali come 127.x.x.x loopback e 169.254.x.x link-local). Le classi D ed E non sono né pubbliche né private.</p>
+  <h3>Classifica un indirizzo</h3>
+  <label>IP <input id="ip3" placeholder="es. 172.20.5.9" size="16"></label>
+  <button id="b3">Classifica</button>
+  <div id="out3"></div>
+</div>
+
+<div class="card panel" id="p1">
+  <h2>Subnet mask da IP e bit di rete</h2>
+  <label>IP <input id="ip1" placeholder="es. 192.168.1.10" size="16"></label>
+  <label>Bit di rete <input id="bits1" type="number" min="0" max="32" value="24"></label>
+  <button id="b1">Calcola</button>
+  <div id="out1"></div>
+</div>
+
+<div class="card panel" id="p2">
+  <h2>Sottoreti da IP, bit di rete e numero di sottoreti</h2>
+  <label>IP <input id="ip2" placeholder="es. 192.168.1.0" size="16"></label>
+  <label>Bit di rete <input id="bits2" type="number" min="0" max="32" value="24"></label>
+  <label>N. sottoreti <input id="n2" type="number" min="1" value="4"></label>
+  <button id="b2">Calcola</button>
+  <div id="out2"></div>
+</div>
+
+<div class="card panel" id="p4">
+  <h2>Sottoreti da subnet mask</h2>
+  <label>Subnet mask <input id="mask4" placeholder="es. 255.255.255.192" size="16"></label>
+  <button id="b4">Calcola</button>
+  <div id="out4"></div>
+</div>
+
+<div class="card panel" id="p5">
+  <h2>Definire almeno N sottoreti a partire da un IP</h2>
+  <label>IP <input id="ip5" placeholder="es. 172.16.0.0" size="16"></label>
+  <label>Sottoreti minime <input id="n5" type="number" min="1" value="5"></label>
+  <button id="b5">Calcola</button>
+  <div id="out5"></div>
+</div>
+
+<div class="card panel" id="p6">
+  <h2>Due IP appartengono alla stessa sottorete?</h2>
+  <p class="desc">Inserisci due indirizzi IP (es. 172.16.34.10) e la subnet mask, in forma decimale (es. 255.255.252.0) o come prefisso (es. /22).</p>
+  <label>IP 1 <input id="ipa6" size="16"></label>
+  <label>IP 2 <input id="ipb6" size="16"></label>
+  <label>Mask <input id="mask6" size="16"></label>
+  <button id="b6">Verifica</button>
+  <div id="out6"></div>
+</div>
+
+<div class="card panel" id="p7">
+  <h2>Un IP appartiene a una data rete?</h2>
+  <p class="desc">Inserisci l'indirizzo IP (es. 172.20.85.100), l'indirizzo della rete (es. 172.20.80.0) e il prefisso (es. /20) o la mask (es. 255.255.240.0).</p>
+  <label>IP <input id="ip7" size="16"></label>
+  <label>Rete <input id="net7" size="16"></label>
+  <label>Prefisso / mask <input id="mask7" size="18"></label>
+  <button id="b7">Verifica</button>
+  <div id="out7"></div>
+</div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
