@@ -156,6 +156,7 @@ tr:hover td { background: var(--surface-2); }
 .host { color: var(--host); }
 .legend { font-size: .82rem; color: var(--muted); }
 .legend span { margin-right: 14px; }
+tr.hit td { background: #fff4c2; font-weight: 600; }
 .diff { background: var(--diff-bg); color: var(--diff-text); font-weight: 700; border-radius: 3px; }
 .crit { color: var(--crit-text); background: var(--crit-bg); padding: 0 3px; border-radius: 4px; }
 

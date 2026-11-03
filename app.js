@@ -330,7 +330,27 @@ function calc6() {
       ${row('Rete di IP 1', `<b>${toIp(na)}</b>`, andBin(na, p))}
       ${row('Rete di IP 2', `<b>${toIp(nb)}</b>`, andBin(nb, p, na))}
     </table></div>
-    <p class="legend"><span class="net">bit di rete</span><span class="host">bit di host</span><span class="diff">bit di rete diversi</span></p>`;
+    <p class="legend"><span class="net">bit di rete</span><span class="host">bit di host</span><span class="diff">bit di rete diversi</span></p>
+    ${netList6(na, nb, p)}`;
+}
+
+// Elenco delle reti (rete – broadcast) dalla precedente alla successiva a quelle dei due IP
+function netList6(na, nb, p) {
+  const size = p === 0 ? 2 ** 32 : 2 ** (32 - p);
+  const lo = Math.min(na, nb), hi = Math.max(na, nb);
+  let from = Math.max(0, lo - size), to = Math.min(2 ** 32 - size, hi + size);
+  const list = [];
+  if ((to - from) / size + 1 > 64) list.push(lo, ...(hi !== lo ? [hi] : []));
+  else for (let n = from; n <= to; n += size) list.push(n);
+  let rows = '';
+  for (const n of list) {
+    const tag = [n === na ? 'IP 1' : '', n === nb ? 'IP 2' : ''].filter(Boolean).join(' + ');
+    rows += `<tr class="${tag ? 'hit' : ''}"><td>${toIp(n)}</td><td>${toIp(n + size - 1)}</td><td>${tag}</td></tr>`;
+  }
+  return `<h3>Elenco delle reti /${p}</h3>
+    <div class="scroll"><table>
+      <tr><th>Indirizzo di rete</th><th>Broadcast</th><th></th></tr>${rows}
+    </table></div>`;
 }
 
 function calc7() {
