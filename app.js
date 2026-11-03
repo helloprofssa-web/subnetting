@@ -345,11 +345,11 @@ function netList6(na, nb, p) {
   let rows = '';
   for (const n of list) {
     const tag = [n === na ? 'IP 1' : '', n === nb ? 'IP 2' : ''].filter(Boolean).join(' + ');
-    rows += `<tr class="${tag ? 'hit' : ''}"><td>${toIp(n)}</td><td>${toIp(n + size - 1)}</td><td>${tag}</td></tr>`;
+    rows += `<tr class="${tag ? 'hit' : ''}"><td>${toIp(n)}</td><td>${toIp(n + size - 1)}</td><td>${toIp(n)} – ${toIp(n + size - 1)}</td><td>${tag}</td></tr>`;
   }
   return `<h3>Elenco delle reti /${p}</h3>
     <div class="scroll"><table>
-      <tr><th>Indirizzo di rete</th><th>Broadcast</th><th></th></tr>${rows}
+      <tr><th>Indirizzo di rete</th><th>Broadcast</th><th>Intervallo di rete</th><th></th></tr>${rows}
     </table></div>`;
 }
 
